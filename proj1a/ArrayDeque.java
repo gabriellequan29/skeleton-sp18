@@ -1,5 +1,3 @@
-import java.lang.Object;
-
 public class ArrayDeque<T> {
     private T[] items;
     private final int DEFAULT_CAPACITY = 8;
@@ -18,7 +16,7 @@ public class ArrayDeque<T> {
     }
 
 
-    public int moveLeft(int index) {
+    private int moveLeft(int index) {
         if (index == 0) {
             return items.length - 1;
         } else {
@@ -26,7 +24,7 @@ public class ArrayDeque<T> {
         }
     }
 
-    public int moveRight(int index) {
+    private int moveRight(int index) {
         if (index == this.items.length - 1) {
             return 0;
         } else {
@@ -34,14 +32,14 @@ public class ArrayDeque<T> {
         }
     }
 
-    public void expend() {
+   private void expend() {
         if (size == items.length) {
             int newCapacity = items.length * EXPAND_BASE;
             resize(newCapacity);
         }
     }
 
-    public void contract() {
+    private void contract() {
         double ratio = (double) size / items.length;
         if (ratio < RATIO) {
             int newCapacity = items.length / CONTRACT_BASE;
@@ -49,7 +47,7 @@ public class ArrayDeque<T> {
         }
     }
 
-    public void resize(int capacity) {
+    private void resize(int capacity) {
         T[] newItems = (T[]) new Object[capacity];
         System.arraycopy(items, this.front, newItems, 0, items.length - this.front);
         System.arraycopy(items, 0, newItems, capacity - this.front, this.front);
@@ -94,6 +92,9 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
+        if (size == 0) {
+            return null;
+        }
         int nextFront = moveRight(front);
         T removed = items[front];
         items[front] = null;
@@ -104,6 +105,9 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
+        if (size == 0) {
+            return null;
+        }
         int nextTail = moveLeft(tail);
         T removed = items[nextTail];
         items[nextTail] = null;
