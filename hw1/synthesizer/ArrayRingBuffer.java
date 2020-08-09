@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 //TODO: Make sure to make this class and all of its methods public
 //TODO: Make sure to make this class extend AbstractBoundedQueue<t>
-public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> implements Iterable<T> {
+public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T>{
     /* Index for the next dequeue or peek. */
     private int first;            // index for the next dequeue or peek
     /* Index for the next enqueue. */
@@ -43,7 +43,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> implements Itera
         }
         rb[last] = x;
         last++;
-        if(last >= this.capacity) {
+        if (last >= this.capacity) {
             last = 0;
         }
         fillCount++;
@@ -91,7 +91,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> implements Itera
         return new BufferIterator();
     }
 
-    public class BufferIterator implements Iterator<T>{
+    private class BufferIterator implements Iterator<T> {
         private int count;
 
         public BufferIterator() {
@@ -104,7 +104,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> implements Itera
         }
 
         @Override
-        public T next(){
+        public T next() {
             T returnItem = rb[count];
             count++;
             return returnItem;
